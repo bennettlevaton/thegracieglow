@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Script from "next/script";
 
@@ -12,6 +12,36 @@ const fadeUp = {
 const stagger = {
   visible: { transition: { staggerChildren: 0.15 } },
 };
+
+function TestimonialCard({ name, snippet, full }: { name: string; snippet: string; full: string }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <motion.div
+      variants={fadeUp}
+      className="flex flex-col rounded-3xl overflow-hidden"
+      style={{ background: "var(--cream)", boxShadow: "0 8px 40px rgba(211,184,174,0.25)" }}
+    >
+      <div className="p-7 flex flex-col gap-4">
+        <div className="flex gap-1" style={{ color: "var(--mauve)" }}>
+          {"⭐⭐⭐⭐⭐"}
+        </div>
+        <p className="text-base leading-relaxed opacity-75 italic">
+          &ldquo;{expanded ? full.split("\n\n").map((para, i) => (
+            <span key={i}>{para}{i < full.split("\n\n").length - 1 && <><br /><br /></>}</span>
+          )) : snippet}&rdquo;
+        </p>
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="text-sm font-medium tracking-wide text-left transition-opacity hover:opacity-60"
+          style={{ color: "var(--mauve)" }}
+        >
+          {expanded ? "Show less ↑" : "Read full story ↓"}
+        </button>
+        <p className="text-sm font-semibold tracking-wide">{name}</p>
+      </div>
+    </motion.div>
+  );
+}
 
 function FadeSection({ children, className }: { children: React.ReactNode; className?: string }) {
   const ref = useRef(null);
@@ -49,16 +79,24 @@ const pillars = [
 
 const testimonials = [
   {
-    name: "Sarah M.",
-    quote: "My skin has never looked better. I get asked about it constantly.",
+    name: "Brittany",
+    snippet: "This course had a profound impact on my nervous system and helped me recognize habits that may have been affecting my body. Understanding the \"why\" behind each practice gave me even more motivation, especially once I started feeling real changes.",
+    full: "I feel so grateful to have connected with Grace and learned how her own journey inspired this course. Grace is such an empathetic and genuine person. Throughout the program, she was consistently encouraging, supportive, and created a safe space to share progress and reflections. She celebrated every success, no matter how small or simple, and made me feel truly seen.\n\nThe course itself was thoughtfully designed, with clear slides, helpful explanations, and key takeaways that can be easily applied to daily life. Grace communicates in such a meaningful way, using relatable examples and sharing the wealth of knowledge she's gained through her science background. It's clear how much she genuinely wants to help others understand and heal.\n\nThis course had a profound impact on my nervous system and helped me recognize habits that may have been affecting my body. The lessons were practical, realistic, and easy to integrate into a busy life. Understanding the \"why\" behind each practice gave me even more motivation, especially once I started feeling real changes.\n\nThe Rootsly course is one I wish I had at the start of my healing journey. You can feel the passion, care, and thoughtfulness that went into creating it to support others on theirs. When I finished, I actually felt sad it was over!\n\nOverall, this was a fantastic and transformative course that made a lasting impact on my daily life and health. I'm so thankful to have taken it and connected with Grace.",
   },
   {
-    name: "Jordan L.",
-    quote: "I was skeptical at first but after just a few weeks I was completely hooked.",
+    name: "Jacobo M.",
+    snippet: "This course transformed my life and put me back on track, making me mentally stronger and reigniting the joy and happiness I once had. Since completing the course, my diet is back on point, and my mental well-being is at an all-time high.",
+    full: "This course transformed my life and put me back on track, making me mentally stronger and reigniting the joy and happiness I once had. Before I started, I was in a tough place, struggling with my emotions and maintaining a healthy diet. Since completing the course, my diet is back on point, and my mental well-being is at an all-time high.\n\nOne of the highlights of this course was learning how to be in tune with my body and to love it. The breathwork techniques were especially beneficial, helping me to calm down and better understand my body's needs. I also gained a solid understanding of macros; I now pay attention to nutrition labels and ensure that what I buy includes quality sources of carbs, proteins, and fats.\n\nThe emotions section was my favorite part of the course. I struggled with identifying and controlling my emotions, but Grace taught me valuable strategies to manage them. I now recognize that it's completely okay to feel and express my emotions, a significant change from my previous experience.\n\nCommitting to this course was a big step, but it has profoundly changed my life for the better. I have established a daily routine that I truly enjoy, and I am now fully engaged in life, savoring every moment.",
   },
   {
-    name: "Alex R.",
-    quote: "Grace genuinely changed how I feel in my own skin. Worth every penny.",
+    name: "Alex",
+    snippet: "I'm no longer at war with myself or my emotions. My mind isn't something I fear, my body isn't something I try to control. I finally trust myself.",
+    full: "Before this program, I didn't know how to regulate my emotions. I didn't trust myself with anything. I was living on autopilot — days flew by, I wasn't present in my own life, and I was stuck in a constant fight-or-flight state without even realizing it. Everything felt urgent, heavy, and overwhelming.\n\nI knew something had to change, but I felt stuck and didn't know where to start.\n\nAfter 12 weeks working with Grace, everything shifted.\n\nThis wasn't just a program — it was a full reset in how I move through life, my body, my mind, and the way I speak to myself. For the first time, I started to understand what was actually going on beneath the surface instead of just pushing through and pretending everything was fine.\n\nI'm no longer at war with myself or my emotions. My mind isn't something I fear, my body isn't something I try to control, and I don't feel like I'm constantly reacting to life anymore. I've learned how to slow down, check in with myself, and respond instead of just surviving.\n\nRoothsly Realignment didn't \"fix\" me — it showed me I was never broken to begin with. But now, I'm no longer lost. I feel grounded, present, and actually in control of my life again.",
+  },
+  {
+    name: "Lisa",
+    snippet: "I now feel more energized, balanced, and at peace with myself. My depression has significantly improved, and I truly feel like a new version of myself.",
+    full: "I cannot express enough how much this wellness course has changed my life. Before starting the course, I was struggling with weight gain, overwhelming anxiety, and deep depression that made it hard to function on a daily basis. I felt stuck in a never-ending funk and didn't know where to turn.\n\nThis course, however, has been a complete game-changer. Grace is an incredible teacher — so knowledgeable, compassionate, and truly dedicated to helping her clients heal. She created a course that was both comprehensive and easy to follow, breaking down complex wellness concepts into actionable steps that I could easily implement into my daily routine.\n\nI learned so much about creating balanced meals, understanding the importance of nourishing my body, and how deeply healing the right lifestyle choices can be. The course helped me reframe my relationship with food, exercise, and self-care in ways that I never thought were possible.\n\nI now feel more energized, balanced, and at peace with myself. My depression has significantly improved, and I've learned how to take better care of both my body and mind. I truly feel like a new version of myself.\n\nIf you're looking for a way to heal, find balance, and improve your mental and physical health, I highly recommend this course. Grace's guidance has been invaluable, and I am forever grateful for the transformation I've experienced.",
   },
 ];
 
@@ -382,33 +420,9 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((t) => (
-              <motion.div
-                key={t.name}
-                variants={fadeUp}
-                className="video-card rounded-3xl overflow-hidden flex flex-col"
-                style={{ background: "var(--cream)", boxShadow: "0 8px 40px rgba(211,184,174,0.25)" }}
-              >
-                {/* Swap for real video embed or thumbnail */}
-                <div
-                  className="relative flex items-center justify-center"
-                  style={{ background: "var(--sage)", aspectRatio: "4/5" }}
-                >
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform"
-                    style={{ background: "rgba(245,238,230,0.9)" }}
-                  >
-                    <svg className="w-6 h-6 ml-1" viewBox="0 0 24 24" fill="currentColor" style={{ color: "var(--text)" }}>
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-base leading-relaxed opacity-75 mb-4 italic">&ldquo;{t.quote}&rdquo;</p>
-                  <p className="text-sm font-medium tracking-wide">{t.name}</p>
-                </div>
-              </motion.div>
+              <TestimonialCard key={t.name} name={t.name} snippet={t.snippet} full={t.full} />
             ))}
           </div>
         </FadeSection>
