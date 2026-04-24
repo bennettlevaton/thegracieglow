@@ -101,7 +101,7 @@ const testimonials = [
 ];
 
 export default function Home() {
-  const ctaRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null); // kept for section anchor
   const videoRef = useRef<HTMLIFrameElement>(null);
 
   const initPlayer = () => {
@@ -186,9 +186,9 @@ export default function Home() {
             />
           </motion.div>
 
-          <motion.button
+          <motion.a
             variants={fadeUp}
-            onClick={() => ctaRef.current?.scrollIntoView({ behavior: "smooth" })}
+            href="/apply"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
             className="btn-glow px-10 py-4 rounded-full text-base tracking-widest uppercase font-medium transition-all duration-300"
@@ -199,7 +199,7 @@ export default function Home() {
             }}
           >
             Apply now →
-          </motion.button>
+          </motion.a>
         </motion.div>
       </section>
 
